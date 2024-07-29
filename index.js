@@ -9,12 +9,15 @@ const wss = new WebSocket.Server({ server });
 wss.on("connection", (ws) => {
   console.log("Client connected");
 
-  // Send notification every 3 seconds
+  // Send notification every 30 seconds
   const interval = setInterval(() => {
+    console.log("Sending notification");
     if (ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ message: "Notification" }));
+    } else {
+      console.log("WebSocket is not open");
     }
-  }, 3000);
+  }, 30000);
 
   ws.on("message", (message) => {
     console.log("Received message:", message);
@@ -27,8 +30,7 @@ wss.on("connection", (ws) => {
   });
 
   ws.on("error", (error) => {
-    console.error("WebSocket error:", error);
-    clearInterval(interval);
+    console.log("WebSocket error:", error);
   });
 });
 
@@ -41,5 +43,3 @@ server.listen(PORT, () => {
 app.get("/", (req, res) => {
   res.send("WebSocket server is running");
 });
-
-module.exports = server;
