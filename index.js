@@ -17,7 +17,7 @@ wss.on("connection", (ws) => {
     } else {
       console.log("WebSocket is not open");
     }
-  }, 30000);
+  }, 3000);
 
   ws.on("message", (message) => {
     console.log("Received message:", message);
