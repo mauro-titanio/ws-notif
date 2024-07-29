@@ -14,8 +14,6 @@ wss.on("connection", (ws) => {
     console.log("Sending notification");
     if (ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ message: "Notification" }));
-    } else {
-      console.log("WebSocket is not open");
     }
   }, 3000);
 
@@ -43,3 +41,5 @@ server.listen(PORT, () => {
 app.get("/", (req, res) => {
   res.send("WebSocket server is running");
 });
+
+module.exports = server;
