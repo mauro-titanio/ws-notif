@@ -9,9 +9,8 @@ const wss = new WebSocket.Server({ server });
 wss.on("connection", (ws) => {
   console.log("Client connected");
 
-  // Send notification every 30 seconds
+  // Send notification every 3 seconds
   const interval = setInterval(() => {
-    console.log("Sending notification");
     if (ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ message: "Notification" }));
     }
@@ -28,7 +27,8 @@ wss.on("connection", (ws) => {
   });
 
   ws.on("error", (error) => {
-    console.log("WebSocket error:", error);
+    console.error("WebSocket error:", error);
+    clearInterval(interval);
   });
 });
 
